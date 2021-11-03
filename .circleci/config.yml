@@ -40,7 +40,8 @@ jobs:
     steps:
       - run:
           name: "Say env name"
-          command: "echo $A_NAME"
+          command: |
+            echo $A_NAME
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
