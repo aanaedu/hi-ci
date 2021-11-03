@@ -42,15 +42,38 @@ jobs:
           name: "Say env name"
           command: |
             echo $A_NAME
+  
+  save_hello_world_output:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - run:
+          name: "Save file"
+          command: |
+            echo "text to output here" > output.txt
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - output.txt
+
+  print_output_file:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: "View saved file"
+          command: |
+            cat output.txt
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   say-hello-workflow:
     jobs:
-      - say-hello
-      - print_hello
-      - print_world:
-          requires: 
-            - print_hello
-      - print_env_name
+      - save_hello_world_output
+      - print_output_file:
+          requires:
+            - save_hello_world_output
+
