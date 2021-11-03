@@ -51,7 +51,7 @@ jobs:
           name: "Save file"
           command: |
             echo "text to output here" > output.txt
-            mkdir /tmp/workspace
+            mkdir -p /tmp/workspace
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
