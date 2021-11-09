@@ -90,8 +90,6 @@ jobs:
           when: on_fail
   
   create_infrastructure:
-    orbs:
-      aws-cli: circleci/aws-cli@2.0.3
     docker:
       - image: amazon/aws-cli
     steps:
