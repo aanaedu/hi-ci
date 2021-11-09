@@ -99,8 +99,8 @@ jobs:
       - run:
           name: Create stack
           command: |
-            aws cloudformation deploy 
-            --stack-name teststackci 
+            aws cloudformation deploy \
+            --stack-name teststackci \
             --template-file clouldformation/template.yml
 
 # Invoke jobs via workflows
