@@ -94,12 +94,13 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
+      - run: ls -la
       - run:
           name: Create stack
           command: |
             aws cloudformation deploy \
               --stack-name teststackci \
-              --template-file ./clouldformation/template.yml
+              --template-file /clouldformation/template.yml
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
