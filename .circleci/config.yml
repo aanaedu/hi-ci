@@ -94,11 +94,9 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      - run: ls -la .
       - run:
           name: Create stack
           command: |
-            pwd
             aws cloudformation deploy \
               --stack-name teststackci \
               --template-file template.yml
