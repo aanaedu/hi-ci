@@ -112,12 +112,9 @@ jobs:
       - add_ssh_keys:
           fingerprints: ['df:0b:64:c8:0c:8b:f8:7f:92:b9:8f:24:8a:8e:a8:17']
       - run:
-          name: Install ansible
+          name: Install dependencies
           command: |
-            apt update
-            apt install software-properties-common
-            add-apt-repository --yes --update ppa:ansible/ansible
-            apt install ansible
+            apk add --update ansible
       - run:
           name: Config server
           command: |
