@@ -116,8 +116,11 @@ jobs:
           command: |
             apk add --update ansible
       - run: ls -la scripts/ansible
+      - run: 
+          name: Configure ansible
+          command: |
+            echo "host_key_checking = False" >> /etc/ansible/ansible.cfg
       - run: ls -la /etc/ansible
-      - run: echo "host_key_checking = False" >> /etc/ansible/ansible.cfg
       - run:
           name: Config server
           command: |
