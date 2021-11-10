@@ -110,12 +110,11 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys:
-          fingerprints: ['f5:4a:f0:15:c5:38:d6:17:8b:e0:8c:d9:40:28:7e:c1']
+          fingerprints: ['df:0b:64:c8:0c:8b:f8:7f:92:b9:8f:24:8a:8e:a8:17']
       - run:
           name: Install dependencies
           command: |
             apk add --update ansible
-      - run: ls scripts/ansible
       - run:
           name: Config server
           command: |

@@ -1,2 +1,0 @@
-[all]
-ec2-35-86-217-237.us-west-2.compute.amazonaws.com
