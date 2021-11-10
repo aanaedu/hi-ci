@@ -119,7 +119,7 @@ jobs:
       - run: 
           name: Configure ansible
           command: |
-            mv scripts/ansible/ansible.cfg ~
+            mv scripts/ansible/ansible.cfg ~/.ansible.cfg
       - run:
           name: Config server
           command: |
