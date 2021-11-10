@@ -167,12 +167,12 @@ jobs:
 workflows:
   create_infrastructure_workflow:
     jobs:
-      - create_infrastructure:
-          filters:
-            branches:
-              only:
-                - master
-                - main
+      - create_infrastructure
+          # filters:
+          #   branches:
+          #     only:
+          #       - master
+          #       - main
       - update_inventory:
           requires:
             - create_infrastructure
