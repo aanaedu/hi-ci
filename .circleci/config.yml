@@ -120,6 +120,7 @@ jobs:
           name: Config server
           command: |
             host_key_checking = False >> /etc/ansible
+            ansible-config dump
             ansible-playbook -i scripts/ansible/inventory.txt scripts/ansible/main-remote.yml
 
 # Invoke jobs via workflows
