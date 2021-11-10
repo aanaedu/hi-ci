@@ -123,7 +123,6 @@ jobs:
       - run:
           name: Config server
           command: |
-            ansible-config dump
             ansible-playbook -i scripts/ansible/inventory.txt scripts/ansible/main-remote.yml
 
   smoke_test:
@@ -144,4 +143,5 @@ workflows:
     jobs:
       - create_infrastructure
       - config_infrastructure
+      - smoke_test
 
