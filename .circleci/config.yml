@@ -2,6 +2,9 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
+# ENVIORNMENT NAMES
+# DEPLOY_STACK_NAME,
+
 commands:
   print_pipeline_id:
     description: "A command that prints the workflow ID"
@@ -98,7 +101,7 @@ jobs:
           name: Create stack
           command: |
             aws cloudformation deploy \
-              --stack-name teststackci \
+              --stack-name $DEPLOY_STACK_NAME \
               --template-file template.yml
 
 # Invoke jobs via workflows
