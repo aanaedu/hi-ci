@@ -127,10 +127,18 @@ jobs:
 
   smoke_test:
     docker:
-      - image: cimg/base:stable
+      - image: alpine:latest
     steps:
-      - checkout
-      - run: curl http://ec2-35-86-217-237.us-west-2.compute.amazonaws.com
+      - run: apk add --update curl
+      - run:
+          name: Smoke test
+          command: |
+            if curl -s --head http://ec2-35-86-217-237.us-west-2.compute.amazonaws.com
+            then
+              return 0
+            else
+              return 1
+            fi
       - run: 
           name: Rollback previous build
           command: echo "Rolling back previous build..."
