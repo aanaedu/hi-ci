@@ -169,12 +169,9 @@ workflows:
           #     only:
           #       - master
           #       - main
-      - update_inventory:
-          requires:
-            - create_infrastructure
       - config_infrastructure:
           requires:
-            - update_inventory
+            - create_infrastructure
       - smoke_test:
           requires:
             - config_infrastructure
