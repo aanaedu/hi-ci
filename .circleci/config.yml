@@ -119,6 +119,7 @@ jobs:
       - run:
           name: Config server
           command: |
+            ansible-config dump 
             ansible-playbook -i scripts/ansible/inventory.txt scripts/ansible/main-remote.yml
 
 # Invoke jobs via workflows
