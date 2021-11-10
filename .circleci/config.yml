@@ -17,7 +17,7 @@ commands:
           name: Destroy environment
           when: on_fail
           command: |
-            aws cloudformation delete-stack --stack-name myStack-$CIRCLE_WORKFLOW_ID
+            aws cloudformation delete-stack --stack-name stack-$CIRCLE_WORKFLOW_ID
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
@@ -109,9 +109,20 @@ jobs:
           name: Create stack
           command: |
             aws cloudformation deploy \
-              --stack-name myStack-$CIRCLE_WORKFLOW_ID \
+              --stack-name stack-$CIRCLE_WORKFLOW_ID \
               --template-file template.yml
       - destroy_environment
+
+  update_inventory:
+    docker:
+      - image: alpine:latest
+    steps:
+      - run:
+          name: Update inventory
+          command: |
+            aws ec2 describe-instances \
+            --query 'Reservations[*].Instances[*].PublicIpAddress' \
+            --output text >> scripts/ansible/inventory.txt
 
   config_infrastructure:
     docker:
@@ -151,15 +162,23 @@ jobs:
       - destroy_environment
 
 
-
-
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   create_infrastructure_workflow:
     jobs:
-      - create_infrastructure
-      - config_infrastructure
+      - create_infrastructure:
+          filters:
+            branches:
+              only:
+                - master
+                - main
+      - update_inventory:
+          requires:
+            - create_infrastructure
+      - config_infrastructure:
+          requires:
+            - update_inventory
       - smoke_test:
           requires:
             - config_infrastructure
