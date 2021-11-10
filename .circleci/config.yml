@@ -126,6 +126,17 @@ jobs:
             ansible-config dump
             ansible-playbook -i scripts/ansible/inventory.txt scripts/ansible/main-remote.yml
 
+  smoke_test:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run: curl http://ec2-35-86-217-237.us-west-2.compute.amazonaws.com
+      - run: 
+          name: Rollback previous build
+          command: echo "Rolling back previous build..."
+          when: on_fail
+          
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
