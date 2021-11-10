@@ -113,17 +113,6 @@ jobs:
               --template-file template.yml
       - destroy_environment
 
-  update_inventory:
-    docker:
-      - image: alpine:latest
-    steps:
-      - run:
-          name: Update inventory
-          command: |
-            aws ec2 describe-instances \
-            --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --output text >> scripts/ansible/inventory.txt
-
   config_infrastructure:
     docker:
       - image: python:3.7-alpine3.11
@@ -141,9 +130,16 @@ jobs:
           command: |
             mv scripts/ansible/ansible.cfg ~/.ansible.cfg
       - run:
+          name: Update inventory
+          command: |
+            aws ec2 describe-instances \
+            --query 'Reservations[*].Instances[*].PublicIpAddress' \
+            --output text >> scripts/ansible/inventory.txt
+      - run:
           name: Config server
           command: |
             ansible-playbook -i scripts/ansible/inventory.txt scripts/ansible/main-remote.yml
+      - destroy_environment
 
   smoke_test:
     docker:
