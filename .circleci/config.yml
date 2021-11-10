@@ -116,10 +116,12 @@ jobs:
           command: |
             apk add --update ansible
       - run: ls -la scripts/ansible
+      - run: ls -la /etc/ansible
+      - run: echo "host_key_checking = False" >> /etc/ansible/ansible.cfg
       - run:
           name: Config server
           command: |
-            echo "host_key_checking = False" >> /etc/ansible
+            
             ansible-config dump
             ansible-playbook -i scripts/ansible/inventory.txt scripts/ansible/main-remote.yml
 
