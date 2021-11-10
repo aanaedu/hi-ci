@@ -115,10 +115,11 @@ jobs:
           name: Install dependencies
           command: |
             apk add --update ansible
-      - run: ls -la
+      - run: ls -la .
       - run:
           name: Config server
           command: |
+            $(pwd)
             ansible-playbook -i /scripts/ansible/inventory.txt /scripts/ansible/main-remote.yml
 
 # Invoke jobs via workflows
