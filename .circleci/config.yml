@@ -115,12 +115,10 @@ jobs:
           name: Install dependencies
           command: |
             apk add --update ansible
-      - run: ls -la .
       - run:
           name: Config server
           command: |
-            $(pwd)
-            ansible-playbook -i /scripts/ansible/inventory.txt /scripts/ansible/main-remote.yml
+            sudo ansible-playbook -i /scripts/ansible/inventory.txt /scripts/ansible/main-remote.yml
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
