@@ -119,12 +119,10 @@ jobs:
       - run: 
           name: Configure ansible
           command: |
-            echo "host_key_checking = False" >> /etc/ansible/ansible.cfg
-      - run: ls -la /etc/ansible
+            mv scripts/ansible/ansible.cfg ~
       - run:
           name: Config server
           command: |
-            
             ansible-config dump
             ansible-playbook -i scripts/ansible/inventory.txt scripts/ansible/main-remote.yml
 
