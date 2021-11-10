@@ -115,6 +115,7 @@ jobs:
           name: Install dependencies
           command: |
             apk add --update ansible
+      - run: ls -la
       - run:
           name: Config server
           command: |
